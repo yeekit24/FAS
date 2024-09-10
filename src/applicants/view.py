@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .models import Applicant, ApplicantHousehold
 from .serializer import ApplicantSerializer, CreateApplicantSerializer
 
+
 class ApplicantViewset(viewsets.ModelViewSet):
     serializer_class = ApplicantSerializer
     pagination_class = LimitOffsetPagination

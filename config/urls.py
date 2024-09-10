@@ -8,7 +8,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("health-checks/", include("health_check.urls")),
 ]
-    
+
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local asgi development
     urlpatterns += staticfiles_urlpatterns()

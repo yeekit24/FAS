@@ -1,21 +1,21 @@
 import uuid
 
 from rest_framework import serializers
-from src.users.serializer import SimpleUserSerializer
-from .models import Scheme, SchemeCriteria, SchemeBenefits
+
+from .models import Scheme, SchemeBenefits, SchemeCriteria
 
 
 class CriteriaSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SchemeCriteria
         exclude = ["id"]
 
-class BenefitSerializer(serializers.ModelSerializer):
 
+class BenefitSerializer(serializers.ModelSerializer):
     class Meta:
         model = SchemeBenefits
         exclude = ["id"]
+
 
 class SchemeSerializer(serializers.ModelSerializer):
     scheme_criteria = CriteriaSerializer(many=True)
@@ -24,6 +24,7 @@ class SchemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scheme
         exclude = ["id"]
+
 
 class CreateCriteriaSerializer(serializers.ModelSerializer):
     uid = serializers.UUIDField(required=False, default=uuid.uuid4)

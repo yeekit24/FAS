@@ -17,5 +17,3 @@ class SchemeViewset(viewsets.ModelViewSet):
 
     def eligible(self):
         pass
-        #request.query_params
-        query = Scheme.objects.select_related()

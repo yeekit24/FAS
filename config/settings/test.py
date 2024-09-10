@@ -62,4 +62,3 @@ TEMPLATES[-1]["OPTIONS"]["loaders"] = [  # type: ignore[index] # noqa F405
         ],
     )
 ]
-
