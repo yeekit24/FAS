@@ -1,0 +1,6 @@
+.*
+!.coveragerc
+!.creds
+!.env
+!.pylintrc
+**/__pycache__

@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "src.authentication.apps.AuthenticationConfig",
     "src.applicants.apps.ApplicantsConfig",
+    "src.applications.apps.ApplicationsConfig",
     "src.schemes.apps.SchemesConfig",
     "src.common.apps.CommonConfig",
     "src.users.apps.UsersConfig",
