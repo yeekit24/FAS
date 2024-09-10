@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+python manage.py collectstatic --no-input
+python manage.py migrate
+# python manage.py loaddata configuration_risk_category.yaml
+gunicorn config.asgi_prod:application --bind 0.0.0.0:8000 -w 13 -k uvicorn.workers.UvicornWorker

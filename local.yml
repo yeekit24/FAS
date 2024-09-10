@@ -1,0 +1,51 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+  localstack_data: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: ${APP_UID}
+    volumes:
+      - .:/app
+    env_file:
+      - ./.envs/.local/.postgres
+      - ./.envs/.local/.django
+      - ./.env
+    ports:
+      - "8000:8000"
+    entrypoint: dockerize -wait tcp://postgres:5432
+    command: /start
+    restart: always
+    depends_on:
+      - postgres
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
+    image: ${APP_UID}_postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    restart: always
+    ports:
+      - 26432:5432
+
+  redis:
+    image: redis:7.0.11-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --loglevel warning
+    env_file:
+      - ./.env
+    volumes:
+      - ./.cache:/cache

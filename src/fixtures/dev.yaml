@@ -1,0 +1,22 @@
+- model: users.user
+  pk: 1
+  fields:
+    password: argon2$argon2i$v=19$m=512,t=2,p=2$dUQ0Z1lHeko3RElx$O06lq44WJMF6VwvkA+kQZg
+    last_login: 2020-09-09 12:52:18+00:00
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: mail@localhost
+    is_staff: true
+    is_active: true
+    date_joined: 2020-09-09 12:47:31+00:00
+    name: Admin User
+    user_permissions: []
+
+
+- model: authtoken.token
+  pk: '123'
+  fields:
+    user: 1
+    created: 2020-09-09 12:53:32.138166+00:00
