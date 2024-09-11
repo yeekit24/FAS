@@ -36,6 +36,7 @@ class EligibleApplicationSerializer(serializers.ModelSerializer):
         model = Application
         fields = ["application"]
 
+
 class EligibleResultSerializer(serializers.ModelSerializer):
     result = serializers.CharField()
 

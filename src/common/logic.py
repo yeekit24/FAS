@@ -1,5 +1,6 @@
 from src.schemes.models import SchemeCriteria
 
+
 def check_through_schemes(applicant, schemes):
     avai_schemes = []
     for scheme in schemes:
@@ -29,6 +30,7 @@ def check_through_schemes(applicant, schemes):
             avai_schemes.append(scheme)
     return avai_schemes
 
+
 def is_eligible(criteria, applicant) -> bool:
     if criteria.field == SchemeCriteria.FIELD.EMPLOYMENT_STATUS:
         return validate(criteria, applicant.employment_status)
@@ -39,6 +41,7 @@ def is_eligible(criteria, applicant) -> bool:
     elif criteria.field == SchemeCriteria.FIELD.MARITAL_STATUS:
         return validate(criteria, applicant.marital_status)
     return False
+
 
 def validate(criteria, field: str):
     if criteria.ops == SchemeCriteria.OPS.GR:
