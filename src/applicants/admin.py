@@ -7,6 +7,7 @@ class InlineHouseholdAdmin(admin.TabularInline):
     model = ApplicantHousehold
     readonly_fields = ["modified_time"]
     ordering = ("-modified_time",)
+    fk_name = "applicant_id"
 
 
 @admin.register(Applicant)

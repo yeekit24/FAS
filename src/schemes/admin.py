@@ -1,14 +1,16 @@
 from django.contrib import admin
 
-from .models import Scheme, SchemeBenefits, SchemeCriteria
+from .models import Scheme, SchemeBenefit, SchemeCriteria
 
 
 class InlineBenefitAdmin(admin.TabularInline):
-    model = SchemeBenefits
+    model = SchemeBenefit
+    readonly_fields = ["uid", "modified_time"]
 
 
 class InlineCriteriaAdmin(admin.TabularInline):
     model = SchemeCriteria
+    readonly_fields = ["uid", "modified_time"]
 
 
 @admin.register(Scheme)

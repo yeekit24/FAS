@@ -4,20 +4,21 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from src.authentication.token_bearer import TokenBearerAuthentication
 
 swagger_info = openapi.Info(
     title="FAS API",
     default_version="v1",
     description="FAS description",
-    contact=openapi.Contact(email="yeekit24@gmail.com")
+    contact=openapi.Contact(email="yeekit24@gmail.com"),
 )
 
 
 schema_view = get_schema_view(
     swagger_info,
     public=True,
-    authentication_classes=[],
-    permission_classes=[permissions.AllowAny]
+    authentication_classes=[TokenBearerAuthentication],
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [

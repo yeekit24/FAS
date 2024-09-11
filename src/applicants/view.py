@@ -1,5 +1,6 @@
 from django.db.models import QuerySet
 
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
@@ -28,3 +29,10 @@ class ApplicantViewset(viewsets.ModelViewSet):
             ApplicantHousehold.objects.create(applicant_id=applicant, **household)
 
         return Response({"uid": applicant.uid}, status=status.HTTP_201_CREATED)
+
+    @swagger_auto_schema(auto_schema=None)
+    def destroy(self, request, *args, **kwargs):
+        return Response(
+            {"detail": 'Method "DELETE" not allowed.'},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
