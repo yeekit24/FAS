@@ -17,6 +17,7 @@ from .serializer import (
     ApplicationSerializer,
     CreateApplicationSerializer,
     EligibleApplicationSerializer,
+    EligibleResultSerializer,
 )
 
 
@@ -72,15 +73,15 @@ class ApplicationViewset(viewsets.ModelViewSet):
     @swagger_auto_schema(
         manual_parameters=[
             openapi.Parameter(
-                "applicant",
+                "application",
                 in_=openapi.IN_QUERY,
-                description="Unique identifier for the applicant",
+                description="Unique identifier for the application",
                 type=openapi.TYPE_STRING,
                 required=True,
             )
         ],
         responses={
-            200: {"result": "Approved"},
+            200: EligibleResultSerializer,
             400: "Bad Request",
         },
     )
@@ -89,7 +90,7 @@ class ApplicationViewset(viewsets.ModelViewSet):
         serializer = EligibleApplicationSerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
         application = Application.objects.select_related().get(
-            uid=serializer.validated_data["applicant"], is_active=True
+            uid=serializer.validated_data["application"], is_active=True
         )
 
         if not application:

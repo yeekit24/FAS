@@ -30,8 +30,15 @@ class CreateApplicationSerializer(serializers.ModelSerializer):
 
 
 class EligibleApplicationSerializer(serializers.ModelSerializer):
-    applicant = serializers.UUIDField(required=True)
+    application = serializers.UUIDField(required=True)
 
     class Meta:
         model = Application
-        fields = ["applicant"]
+        fields = ["application"]
+
+class EligibleResultSerializer(serializers.ModelSerializer):
+    result = serializers.CharField()
+
+    class Meta:
+        model = Application
+        fields = ["result"]
