@@ -32,9 +32,12 @@ $ docker compose up --build
 - `compose` - contains the docker setup file of the application
 - `config` - contains the configuration of the application.
 
+Under `compose` and `requirements`, we separate the config file into local and prod for different configuration/requirements(eg: local development can have superuser while production we do not recommended that)
+
 ## Documentation:
 ### Swagger:
 You can visit `http://localhost:8000/v1/api/specs/swagger/` for the available API endpoints
+If you want to test the API with swagger, put `Bearer 123` after you click Authorize.
 
 ### Postman:
 Locate postman collection under your local repository `{{PROJECT_DIR}}/docs/FAS.postman_collection.json`

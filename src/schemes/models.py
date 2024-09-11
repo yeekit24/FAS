@@ -22,6 +22,12 @@ class SchemeCriteria(BaseModel):
         EQ = "="
         IN_ = "in"
 
+    class FIELD(models.TextChoices):
+        EMPLOYMENT_STATUS = "employment_status"
+        SEX = "sex"
+        AGE = "age"
+        MARITAL_STATUS = "marital_status"
+
     uid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
@@ -30,7 +36,7 @@ class SchemeCriteria(BaseModel):
         Scheme, related_name="scheme_criteria", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=255)
-    field = models.CharField(max_length=255)
+    field = models.CharField(choices=FIELD.choices, max_length=255)
     ops = models.CharField(choices=OPS.choices, max_length=2)
     threshold = models.CharField(max_length=255)
     apply_household = models.BooleanField(default=False)
