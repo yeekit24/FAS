@@ -1,15 +1,11 @@
 import datetime
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth import (
-    admin as auth_admin,
-)
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import admin as auth_admin
 
 import pytz
 
 from src.users.models import User
-
 
 
 def to_local_date(val: str) -> datetime.datetime:

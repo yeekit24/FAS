@@ -36,7 +36,7 @@ class SchemeSerializer(serializers.ModelSerializer):
         instance.save()
 
         # Update or create child objects
-        benefits_data = validated_data.get("benefits", [])
+        benefits_data = validated_data.get("scheme_benefit", [])
         for benefit_data in benefits_data:
             benefit_uid = benefit_data.get("uid")
             if benefit_uid:
@@ -54,7 +54,7 @@ class SchemeSerializer(serializers.ModelSerializer):
                 SchemeBenefit.objects.create(scheme_id=instance, **benefit_data)
 
         # Update or create child objects
-        criterias_data = validated_data.get("criterias", [])
+        criterias_data = validated_data.get("scheme_criteria", [])
         for criteria_data in criterias_data:
             criteria_uid = criteria_data.get("uid")
             if criteria_uid:
