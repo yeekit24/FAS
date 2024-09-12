@@ -49,6 +49,10 @@ visit `http://localhost:8000/adm1n/` to access the admin panel. You can use the 
     Password: 123
 ```
 
+## Authorization and Authentication:
+We are using admin user to authenticate and authorization API access.
+For advanced security, we can create a new user in admin panel, with control over which API endpoint can be accessed.
+
 ## CI/CD hook:
 Before you did any code changes, please make sure you have run the following command to check the code syntax.
 ```bash

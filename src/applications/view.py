@@ -5,6 +5,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
@@ -24,6 +25,7 @@ from .serializer import (
 class ApplicationViewset(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     pagination_class = LimitOffsetPagination
+    lookup_field = "uid"
 
     def get_queryset(self) -> QuerySet[Application]:
         params = self.request.query_params
@@ -66,7 +68,7 @@ class ApplicationViewset(viewsets.ModelViewSet):
             reviewer=reviewer,
             created_time=timezone.now(),
             status=Application.Status.PENDING,
-            **input
+            **input,
         )
         return Response({"uid": application.uid}, status=status.HTTP_201_CREATED)
 
@@ -103,3 +105,15 @@ class ApplicationViewset(viewsets.ModelViewSet):
             else Application.Status.REJECTED
         )
         return Response({"result": result}, status=status.HTTP_200_OK)
+
+    def get_object(self):
+        """
+        Override the default get_object method to retrieve the object by UID
+        """
+        # Lookup field is 'uid' in the request
+        uid = self.kwargs.get(self.lookup_field)
+
+        try:
+            return Application.objects.get(uid=uid)
+        except Application.DoesNotExist:
+            raise NotFound(f"No object found with uid {uid}")

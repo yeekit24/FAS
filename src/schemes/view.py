@@ -4,6 +4,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
@@ -20,6 +21,7 @@ from .serializer import (
 class SchemeViewset(viewsets.ModelViewSet):
     serializer_class = SchemeSerializer
     pagination_class = LimitOffsetPagination
+    lookup_field = "uid"
 
     def get_queryset(self) -> QuerySet[Scheme]:
         query = Scheme.objects.select_related().filter(is_active=True)
@@ -75,3 +77,19 @@ class SchemeViewset(viewsets.ModelViewSet):
         for criteria in criterias:
             SchemeCriteria.objects.create(scheme_id=scheme, **criteria)
         return Response({"uid": scheme.uid}, status=status.HTTP_201_CREATED)
+
+    def get_object(self):
+        """
+        Override the default get_object method to retrieve the object by UID
+        """
+        # Lookup field is 'uid' in the request
+        uid = self.kwargs.get(self.lookup_field)
+
+        try:
+            return Scheme.objects.get(uid=uid)
+        except Scheme.DoesNotExist:
+            raise NotFound(f"No object found with uid {uid}")
+
+    def partial_update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return super().update(request, *args, **kwargs)

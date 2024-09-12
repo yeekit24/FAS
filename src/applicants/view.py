@@ -2,6 +2,7 @@ from django.db.models import QuerySet
 
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
@@ -12,6 +13,7 @@ from .serializer import ApplicantSerializer, CreateApplicantSerializer
 class ApplicantViewset(viewsets.ModelViewSet):
     serializer_class = ApplicantSerializer
     pagination_class = LimitOffsetPagination
+    lookup_field = "uid"
 
     def get_queryset(self) -> QuerySet[Applicant]:
         query = Applicant.objects.select_related().filter(is_active=True)
@@ -36,3 +38,15 @@ class ApplicantViewset(viewsets.ModelViewSet):
             {"detail": 'Method "DELETE" not allowed.'},
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
+
+    def get_object(self):
+        """
+        Override the default get_object method to retrieve the object by UID
+        """
+        # Lookup field is 'uid' in the request
+        uid = self.kwargs.get(self.lookup_field)
+
+        try:
+            return Applicant.objects.get(uid=uid)
+        except Applicant.DoesNotExist:
+            raise NotFound(f"No object found with uid {uid}")
