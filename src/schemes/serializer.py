@@ -6,16 +6,12 @@ from .models import Scheme, SchemeBenefit, SchemeCriteria
 
 
 class CriteriaSerializer(serializers.ModelSerializer):
-    uid = serializers.UUIDField(required=False, default=uuid.uuid4)
-
     class Meta:
         model = SchemeCriteria
         exclude = ["id"]
 
 
 class BenefitSerializer(serializers.ModelSerializer):
-    uid = serializers.UUIDField(required=False, default=uuid.uuid4)
-
     class Meta:
         model = SchemeBenefit
         exclude = ["id"]
