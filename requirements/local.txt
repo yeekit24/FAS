@@ -1,3 +1,4 @@
 -r base.txt
 
 uvicorn[standard]==0.23.2  # https://github.com/encode/uvicorn
+coverage==7.6.1
