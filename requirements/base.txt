@@ -10,7 +10,7 @@ django-ipware==3.0.2  # https://github.com/un33k/django-ipware
 django-health-check==3.17.0 # https://github.com/KristianOellegaard/django-health-check
 django-jsoneditor==0.2.4
 django-simple-history==3.4.0
-django-extensions==3.1.2  # https://github.com/django-extensions/django-extensions
+django-extensions==3.2.3  # https://github.com/django-extensions/django-extensions
 drf-yasg==1.21.3
 django-auditlog==2.3.0
 
